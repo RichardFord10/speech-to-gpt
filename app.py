@@ -7,6 +7,9 @@ import time
 # Initialize ChatGpt instance
 chatbot = ChatGpt()
 
+# Store previous questions and answers as a list of tuples
+previous_questions_and_answers = []
+
 def listen_for_input():
     # Function to get user input and store it in a global variable
     global input_text
@@ -33,19 +36,12 @@ def converse():
             break
 
         # Generate a response using ChatGpt and respond to the user
-        response_ready = False
-        answer = ""
-        
-        # Use a timer to check if the user is still there
-        timeout_time = time.time() + RESPONSE_TIMEOUT
-        while time.time() < timeout_time:
-            answer = chatbot.prompt(input_text)
-            if answer.strip() != "":
-                response_ready = True
-                break
+        answer = chatbot.prompt(input_text, is_conversation=bool(previous_questions_and_answers), previous_questions_and_answers=previous_questions_and_answers)
 
-        if response_ready:
+        if answer.strip() != "":
             TextToSpeech.voicePlay(answer)
+            # Add the current question and answer to the previous questions and answers list
+            previous_questions_and_answers.append((input_text, answer))
         else:
             TextToSpeech.voicePlay("I'm sorry, I didn't get any response. Please try again.")
 
@@ -55,3 +51,4 @@ LISTEN_TIMEOUT = 5    # Adjust this value based on the expected maximum pause be
 
 if __name__ == "__main__":
     converse()
+
