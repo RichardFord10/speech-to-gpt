@@ -25,13 +25,10 @@ Before running this project, ensure you have the following installed:
 git clone https://github.com/your_username/your_project.git
 cd your_project
 ```
-1. Install Dependencies
+1. Install Dependencies (install one by one or run..)
 ```
-pip install portaudio
-pip install pyaudio
-pip install openai
-pip install playsound
-pip install gtts
+pip install -r requirements.txt
+
 ```
 2. Open the keys.py file and add your key
 

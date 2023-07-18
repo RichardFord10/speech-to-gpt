@@ -13,9 +13,14 @@ class SpeechToText:
             print("Talk")
             audio_text = r.listen(source)
             print("Input Received, moving on...")
-        # recoginize_() method will throw a request error if the API is unreachable, hence using exception handling
-            try:
-                # using google speech recognition
-                return r.recognize_google(audio_text)
-            except:
-                print("Sorry, I did not get that")
+        try:
+            # Attempt to recognize speech from the audio_text
+            recognized_text = r.recognize_google(audio_text)
+            if recognized_text:
+                return recognized_text
+            else:
+                return "Sorry, I did not get that"
+        except sr.UnknownValueError:
+            return "Sorry, I could not understand what you said"
+        except sr.RequestError:
+            return "Sorry, there was an issue connecting to the speech recognition service"

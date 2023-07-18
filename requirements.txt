@@ -1,0 +1,15 @@
+openai
+numpy
+sys
+requests
+keys
+random
+os
+time
+gtts
+playsound
+shutil
+threading
+speech_recognition
+gtts
+playsound
