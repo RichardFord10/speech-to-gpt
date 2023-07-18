@@ -7,7 +7,7 @@ class ChatGpt:
   def __init__(self):
     pass
 
-  def prompt(prompt):
+  def prompt(self, prompt):
     response = openai.Completion.create(
     engine="text-davinci-002",
     prompt=prompt,
